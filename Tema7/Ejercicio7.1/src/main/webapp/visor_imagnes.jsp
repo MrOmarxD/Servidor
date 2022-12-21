@@ -1,5 +1,5 @@
 <%@page import="java.util.ArrayList"%>
-<%@page import="beans/Imagen.java"%>
+<%@page import="beans.Imagen"%>
 <%@page import="java.io.File"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% 
