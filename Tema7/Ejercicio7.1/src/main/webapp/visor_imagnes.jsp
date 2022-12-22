@@ -2,19 +2,21 @@
 <%@page import="beans.Imagen"%>
 <%@page import="java.io.File"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% 
-    final String RUTA = "img";
-    
-    File carpeta = new File(this.getServletContext().getRealPath(RUTA));
-    ArrayList<Imagen> lstImagenes = new ArrayList<Imagen>();
-    
-    File[] list = carpeta.listFiles();
-    for(int i=0;i<list.length;i++){
-       String ruta = this.getServletContext().getContextPath()+"/"+RUTA+"/"+list[i].getName();
-       String nombre = list[i].getName().split("\\.")[0];
-       long tamanio = list[i].length();
-       Imagen imagen = new Imagen(ruta, nombre, tamanio);
-       lstImagenes.add(imagen);
+<%!
+	final String RUTA = "img";
+	public ArrayList<Imagen> sacarImagenes(String nomCarpeta){
+		   File carpeta = new File(getServletContext().getRealPath(nomCarpeta));
+		   ArrayList<Imagen> lstImagenes = new ArrayList<Imagen>();
+		   
+		   File[] list = carpeta.listFiles();
+		   for(int i=0;i<list.length;i++){
+		      String ruta = getServletContext().getContextPath()+"/"+nomCarpeta+"/"+list[i].getName();
+		      String nombre = list[i].getName().split("\\.")[0];
+		      long tamanio = list[i].length();
+		      Imagen imagen = new Imagen(ruta, nombre, tamanio);
+		      lstImagenes.add(imagen);
+		   }
+		   return lstImagenes;
     }
 %>
 <!DOCTYPE html>
