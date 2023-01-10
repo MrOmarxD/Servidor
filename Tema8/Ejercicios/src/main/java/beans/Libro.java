@@ -7,7 +7,7 @@ package beans;
 
 /**
  *
- * @author Akaitz
+ * @author Omar
  */
 public class Libro {
     private int idLibro;

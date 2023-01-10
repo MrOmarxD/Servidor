@@ -34,7 +34,7 @@
 	<form action="ServletControladorAutores" method="post">
 		Nombre: <input type="text" name="nombre"><br>
         Fecha de nacimiento: <input type="date" name="fechanac"><br>
-        Nacionalidad: <input type="text" name="ncionalidad"><br>
+        Nacionalidad: <input type="text" name="nacionalidad"><br>
         <input type="submit" name="botAniadir" value="AÑADIR">
     </form>
     <p>${errorAniadir}</p>
@@ -43,7 +43,7 @@
     	<h1>Libros de ${nombreAutorSeleccionado}</h1>
     	<ul>
     		<c:forEach items="${librosAutor}" var="libro">
-    			<li>${libro.titulo}</li>
+    			<li><a href="ServletControladorAutores?idLibroPrestar=${libro.idLibro}">${libro.titulo}</a></li>
     		</c:forEach>
     	</ul>
     </c:if>

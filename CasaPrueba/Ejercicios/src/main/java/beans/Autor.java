@@ -9,7 +9,7 @@ import java.util.Date;
 
 /**
  *
- * @author Amaia
+ * @author Omar
  */
 public class Autor {
     private int idAutor;
@@ -19,6 +19,12 @@ public class Autor {
 
     public Autor(int idAutor, String nombre, Date fechanac, String nacionalidad) {
         this.idAutor = idAutor;
+        this.nombre = nombre;
+        this.fechanac = fechanac;
+        this.nacionalidad = nacionalidad;
+    }
+    
+    public Autor(String nombre, Date fechanac, String nacionalidad) {
         this.nombre = nombre;
         this.fechanac = fechanac;
         this.nacionalidad = nacionalidad;

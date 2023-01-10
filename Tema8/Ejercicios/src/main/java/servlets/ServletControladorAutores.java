@@ -35,13 +35,16 @@ public class ServletControladorAutores extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getSession().setAttribute("lstAutores", bd.lstAutores());
-        String idAutor = (String) request.getAttribute("idautor");
+		String idAutor = (String) request.getParameter("idautor");
         if(idAutor != null) {
         	LinkedHashMap<Integer, String> autores = bd.autores();
-        	request.getSession().setAttribute("nombreAutorSeleccionado", autores.get(idAutor));
+        	request.getSession().setAttribute("nombreAutorSeleccionado", autores.get(Integer.parseInt(idAutor)));
         	request.getSession().setAttribute("librosAutor", bd.lstLibrosAutor(idAutor));
         }
+        String idLibroPrestar = (String) request.getParameter("idLibroPrestar");
+        if(idLibroPrestar != null)
+        	bd.aniadirPrestamo(idLibroPrestar);
+        request.getSession().setAttribute("lstAutores", bd.lstAutores());
         request.getRequestDispatcher("autores.jsp").forward(request, response);
     }
 

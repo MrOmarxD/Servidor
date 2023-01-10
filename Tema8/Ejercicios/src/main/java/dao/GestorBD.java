@@ -6,6 +6,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,7 +24,7 @@ import beans.Libro;
 
 /**
  *
- * @author Amaia
+ * @author Omar
  */
 public class GestorBD {
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
@@ -151,7 +152,7 @@ public class GestorBD {
     
     public boolean existeAutor(Autor autor){
         boolean existe = false;
-        String sql = "SELECT id FROM autor WHERE id = " + autor.getIdAutor();
+        String sql = "SELECT id FROM autor WHERE nombre = '" + autor.getNombre() +"' AND fechanac = '"+ autor.getFechanac() +"' AND nacionalidad = "+ autor.getNacionalidad();
         try {
             Connection con = dataSource.getConnection();
             Statement st = con.createStatement();
@@ -197,6 +198,30 @@ public class GestorBD {
         return id;
     }
     
+    public void aniadirPrestamo(String idLibro){
+        String sql = "INSERT INTO libro(fecha, idlibro) "
+                + " VALUES(?, ?)";
+        try {
+            Connection con = dataSource.getConnection();
+            PreparedStatement st = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            SimpleDateFormat formateador = new SimpleDateFormat("yyyy/MM/dd");
+            String fechastr= formateador.format(fecha);
+            st.setDate(1, (Date) hoy);
+            st.setInt(2, Integer.parseInt(idLibro));
+            
+            st.executeUpdate();
+            
+            ResultSet rs = st.getGeneratedKeys();
+            rs.next();
+            
+            rs.close();
+            st.close();
+            con.close();
+        } catch (SQLException ex) {
+            System.err.println("Error en metodo aniadirPrestamo: " + ex);
+        }
+    }
+    
     public int aniadirAutor(Autor autor){
         int id = -1;
         String sql = "INSERT INTO autor(nombre, fechanac, nacionalidad) "
@@ -207,6 +232,7 @@ public class GestorBD {
             st.setString(1, autor.getNombre());
             SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yyyy");
             st.setString(2, formateador.format(autor.getFechanac()));
+            //st.setDate(2, (Date) autor.getFechanac());
             st.setString(3, autor.getNacionalidad());
             
             
