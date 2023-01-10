@@ -5,10 +5,13 @@
  */
 package servlets;
 
+import beans.Autor;
 import beans.Libro;
 import dao.GestorBD;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Amaia
+ * @author Omar
  */
 @WebServlet(name = "ServletControlador", urlPatterns = {"/ServletControlador"})
 public class ServletControlador extends HttpServlet {

@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.logging.Level;
@@ -60,6 +61,28 @@ public class GestorBD {
             con.close();
         } catch (SQLException ex) {
             System.err.println("Error en metodo libros: " + ex);
+        }
+        return libros;
+    }
+    
+    public ArrayList<Libro> lstLibrosAutor(String idAutor){
+        ArrayList<Libro> libros = new ArrayList<Libro>();
+        String sql = "SELECT * FROM libro where idAutor = " + idAutor;
+        try {
+            Connection con = dataSource.getConnection();
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                Libro libro = new Libro(rs.getInt("id"), rs.getString("titulo"),
+                                        rs.getInt("paginas"), rs.getString("genero"), 
+                                        rs.getInt("idAutor"));
+                libros.add(libro);
+            }
+            rs.close();
+            st.close();
+            con.close();
+        } catch (SQLException ex) {
+            System.err.println("Error en metodo lstLibrosAutor: " + ex);
         }
         return libros;
     }
@@ -126,6 +149,25 @@ public class GestorBD {
         return existe;
     }
     
+    public boolean existeAutor(Autor autor){
+        boolean existe = false;
+        String sql = "SELECT id FROM autor WHERE id = " + autor.getIdAutor();
+        try {
+            Connection con = dataSource.getConnection();
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            if(rs.next()){
+                existe = true;
+            }
+            rs.close();
+            st.close();
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(GestorBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return existe;
+    }
+    
     public int insertarLibro(Libro libro){
         int id = -1;
         String sql = "INSERT INTO libro(titulo, paginas, genero, idautor) "
@@ -150,6 +192,36 @@ public class GestorBD {
             con.close();
         } catch (SQLException ex) {
             System.err.println("Error en metodo insertarLibro: " + ex);
+        }
+        
+        return id;
+    }
+    
+    public int aniadirAutor(Autor autor){
+        int id = -1;
+        String sql = "INSERT INTO autor(nombre, fechanac, nacionalidad) "
+                + " VALUES(?, ?, ?)";
+        try {
+            Connection con = dataSource.getConnection();
+            PreparedStatement st = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            st.setString(1, autor.getNombre());
+            SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yyyy");
+            st.setString(2, formateador.format(autor.getFechanac()));
+            st.setString(3, autor.getNacionalidad());
+            
+            
+            st.executeUpdate();
+            
+            ResultSet rs = st.getGeneratedKeys();
+            if(rs.next()){
+                id = rs.getInt(1);
+            }
+            
+            rs.close();
+            st.close();
+            con.close();
+        } catch (SQLException ex) {
+            System.err.println("Error en metodo aniadirAutor: " + ex);
         }
         
         return id;
