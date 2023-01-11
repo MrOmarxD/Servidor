@@ -152,7 +152,7 @@ public class GestorBD {
     
     public boolean existeAutor(Autor autor){
         boolean existe = false;
-        String sql = "SELECT id FROM autor WHERE nombre = '" + autor.getNombre() +"' AND fechanac = '"+ autor.getFechanac() +"' AND nacionalidad = "+ autor.getNacionalidad();
+        String sql = "SELECT id FROM autor WHERE nombre = '" + autor.getNombre() +"'";
         try {
             Connection con = dataSource.getConnection();
             Statement st = con.createStatement();
@@ -204,9 +204,9 @@ public class GestorBD {
         try {
             Connection con = dataSource.getConnection();
             PreparedStatement st = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            SimpleDateFormat formateador = new SimpleDateFormat("yyyy/MM/dd");
+            /*SimpleDateFormat formateador = new SimpleDateFormat("yyyy/MM/dd");
             String fechastr= formateador.format(fecha);
-            st.setDate(1, (Date) hoy);
+            st.setDate(1, (Date) hoy);*/
             st.setInt(2, Integer.parseInt(idLibro));
             
             st.executeUpdate();
@@ -230,9 +230,8 @@ public class GestorBD {
             Connection con = dataSource.getConnection();
             PreparedStatement st = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             st.setString(1, autor.getNombre());
-            SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat formateador = new SimpleDateFormat("yyyy/MM/dd");
             st.setString(2, formateador.format(autor.getFechanac()));
-            //st.setDate(2, (Date) autor.getFechanac());
             st.setString(3, autor.getNacionalidad());
             
             

@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -23,7 +24,7 @@
 		<c:forEach items="${lstAutores}" var="autor">
 			<tr>
 				<td>${autor.nombre}</td>
-				<td>${autor.fechanac}</td>
+				<td><fmt:formatDate value="${autor.fechanac}" pattern="yyyy/MM/dd"/></td>
 				<td>${autor.nacionalidad}</td>
 				<td><a href="ServletControladorAutores?idautor=${autor.idAutor}">Ver Libros</a></td>
 			</tr>
@@ -33,7 +34,7 @@
 	<h1>Añadir Autor</h1>
 	<form action="ServletControladorAutores" method="post">
 		Nombre: <input type="text" name="nombre"><br>
-        Fecha de nacimiento: <input type="date" name="fechanac"><br>
+        Fecha de nacimiento: <input type="text" name="fechanac"><br>
         Nacionalidad: <input type="text" name="nacionalidad"><br>
         <input type="submit" name="botAniadir" value="AÑADIR">
     </form>
