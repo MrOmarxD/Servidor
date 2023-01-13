@@ -2,6 +2,7 @@ package servlets;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import beans.LibroPrestamo;
 import dao.GestorBD;
 
 /**
@@ -30,47 +32,43 @@ public class ServletDevolver extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// Si marca una prestamo para delvolver, este lo añade a la session de lstDevoluciones
-		if(request.getParameter("marcar")!=null){
-			int idPrestamo = Integer.parseInt(request.getParameter("marcar"));
-            ArrayList<Integer> lstlibrosprestados;
-            if(request.getSession().getAttribute("lstLibrosPrestados")==null)
-            	lstlibrosprestados = new ArrayList<Integer>();
-            else
-            	lstlibrosprestados = (ArrayList<Integer>)request.getSession().getAttribute("lstLibrosPrestados");
-            if(!lstlibrosprestados.contains(idPrestamo))
-            	lstlibrosprestados.add(idPrestamo);
-            request.getSession().setAttribute("lstLibrosPrestados", lstlibrosprestados);
+		// Si no existe la lista de libros prestados la crea con el metodo listarLibrosPrestados del gestor de bd
+        if(request.getSession().getAttribute("lstLibrosPrestados")==null) {
+        	request.getSession().setAttribute("lstLibrosPrestados", bd.listarLibrosPrestados());
         }
+        
+        // Si no existe la lista de libros que queremos devolver la crea
+        ArrayList<LibroPrestamo> devoluciones;
+        if(request.getSession().getAttribute("lstDevolucionesMarcadas")==null)
+            devoluciones = new ArrayList<LibroPrestamo>();
+        else
+            devoluciones = (ArrayList<LibroPrestamo>)request.getSession().getAttribute("lstDevolucionesMarcadas");
+		
+		// Si marca un prestamo para delvolver, este lo añade a la session de lstDevolucionesMarcadas
+		if(request.getParameter("marcar")!=null){
+			LibroPrestamo libroPrestamo = bd.buscarLibroPrestamo(Integer.parseInt(request.getParameter("marcar")));
+			
+            if(!devoluciones.contains(libroPrestamo))
+            	devoluciones.add(libroPrestamo);
+            request.getSession().setAttribute("lstDevolucionesMarcadas", devoluciones);
+		}
 		
 		// Si selecciona un prestamo para revertir la devolucion, este 
 		if(request.getParameter("revertir")!=null){
-			int idPrestamo = Integer.parseInt(request.getParameter("revertir"));
-            ArrayList<Integer> devoluciones;
-            if(request.getSession().getAttribute("lstDevolucionesMarcadas")==null)
-                devoluciones=new ArrayList<Integer>();
-           else
-                devoluciones=(ArrayList<Integer>)request.getSession().getAttribute("lstDevolucionesMarcadas");
-            devoluciones.remove(Integer.valueOf(idPrestamo));
+			LibroPrestamo libroPrestamo = bd.buscarLibroPrestamo(Integer.parseInt(request.getParameter("revertir")));
+			
+            if(devoluciones.contains(libroPrestamo))
+            	devoluciones.remove(libroPrestamo);
             request.getSession().setAttribute("lstDevolucionesMarcadas", devoluciones);
-        }
+		}
 		
 		// Si decide grabar las devoluciones
         if(request.getParameter("grabar")!=null){
-            ArrayList<Integer> devoluciones;
-            if(request.getSession().getAttribute("lstDevolucionesMarcadas")==null)
-                devoluciones = new ArrayList<Integer>();
-            else
-                devoluciones=(ArrayList<Integer>)request.getSession().getAttribute("lstDevolucionesMarcadas");
             bd.devolver(devoluciones);
             request.getSession().removeAttribute("lstDevolucionesMarcadas");
             request.getSession().removeAttribute("lstLibrosPrestados");
         }
-		
-		// Si no existe la lista de libros prestados la crea con el metodo listarLibrosPrestados del gestor de bd
-		if(request.getSession().getAttribute("lstLibrosPrestados")==null)
-			request.getSession().setAttribute("lstLibrosPrestados", bd.listarLibrosPrestados());
-		
+     		
 		// Te redirige a devoluciones.jsp
         request.getRequestDispatcher("devoluciones.jsp").forward(request, response);
 	}

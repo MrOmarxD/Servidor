@@ -199,15 +199,12 @@ public class GestorBD {
     }
     
     public void aniadirPrestamo(String idLibro){
-        String sql = "INSERT INTO libro(fecha, idlibro) "
-                + " VALUES(?, ?)";
+        String sql = "INSERT INTO prestamo (fecha, idlibro) "
+                + " VALUES(CURRENT_DATE, ?)";
         try {
             Connection con = dataSource.getConnection();
             PreparedStatement st = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            /*SimpleDateFormat formateador = new SimpleDateFormat("yyyy/MM/dd");
-            String fechastr= formateador.format(fecha);
-            st.setDate(1, (Date) hoy);*/
-            st.setInt(2, Integer.parseInt(idLibro));
+            st.setInt(1, Integer.parseInt(idLibro));
             
             st.executeUpdate();
             
