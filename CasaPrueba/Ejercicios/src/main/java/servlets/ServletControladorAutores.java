@@ -86,6 +86,12 @@ public class ServletControladorAutores extends HttpServlet {
                     if(id == -1){
                         request.setAttribute("errorAniadir", "No se ha podido añadir el autor");
                     }
+                    else {
+                    	//Si no ha habido ningún problema se añade el ID al 
+                        //objeto autor y se añadae el nuevo autor a la seión
+                        autor.setIdAutor(id);
+                        ((ArrayList<Autor>)request.getSession().getAttribute("lstAutores")).add(autor);
+                    }
                 }
             }
             request.getRequestDispatcher("autores.jsp").forward(request, response);
