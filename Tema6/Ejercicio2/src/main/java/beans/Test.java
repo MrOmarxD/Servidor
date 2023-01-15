@@ -14,8 +14,8 @@ public class Test {
 	
 	// Constructor
 	public Test(int cant) {
-        if(cant>PREGUNTAS.length){
-        	cant=PREGUNTAS.length;
+        if(cant > PREGUNTAS.length){
+        	cant = PREGUNTAS.length;
             for (int i = 0; i < PREGUNTAS.length; i++) {
             	ltsPreguntas.add(PREGUNTAS[i]);
             }
@@ -39,7 +39,7 @@ public class Test {
         int i = 0;
         int aciertos = 0;
         for (Pregunta pregunta: ltsPreguntas) {
-            if(pregunta.getRespuestaCorrecta()==respuestas.get(i)){
+            if(pregunta.getRespuestaCorrecta() == respuestas.get(i)){
             	aciertos++;
             }
             i++;

@@ -23,9 +23,9 @@ public class Resultado extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession(true);
         
-        if(request.getParameter("respuesta")==null){
+        if(request.getParameter("respuesta") == null){
             response.sendRedirect("ProcesoPregunta/");
-            session.setAttribute("error","Seleccione una respueta");
+            session.setAttribute("error", "Seleccione una respueta");
         } else {
             int numeroPregunta=(int)(session.getAttribute("numeroPregunta"))+1;
             ArrayList<Integer> respuestas=(ArrayList<Integer>)session.getAttribute("respuestas");

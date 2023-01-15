@@ -78,7 +78,7 @@ public class ProcesoPregunta extends HttpServlet {
         if(session.getAttribute("error")!=null || request.getParameter("respuesta")==null){
             error = (String)session.getAttribute("error");
         }
-        session.setAttribute("error","");
+        session.setAttribute("error", "");
         
         try (PrintWriter out = response.getWriter()) {
             out.println("<!DOCTYPE html>");

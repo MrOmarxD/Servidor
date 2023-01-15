@@ -34,7 +34,7 @@ public class Listalibros extends HttpServlet {
 			sesion.invalidate();
 		else {
 			if(sesion.getAttribute("librosAgregados")!=null)
-				librosAgregados = (ArrayList<String>) sesion.getAttribute("librosAgregados"); // No soy capaz de encontrar el fallo
+				librosAgregados = (ArrayList<String>) sesion.getAttribute("librosAgregados");
 		}
 		// En caso de pulsar agregar libro
 		if(agregar!=null){
@@ -59,12 +59,15 @@ public class Listalibros extends HttpServlet {
 			out.println("<title>Ejercicio 0 - Sessiones servlet</title>");        
 			out.println("</head>");
 			out.println("<body>");
-			out.println("<form method='get' action=''>");
+			out.println("<form method='get' action='Listalibros'>");
 				out.println("<select name='libro_select'>");
 				Catalogo catalogos = new Catalogo();
 				String[] lista_libros = catalogos.getLISTA_LIBROS();
 				for(String libro : lista_libros) {
-					out.println("<option value='"+libro+"'>"+libro+"</option>");
+					String src = "";
+					if(libro_select.equals(libro) )
+						src = "selected";
+					out.println("<option value='"+libro+"' "+src+">"+libro+"</option>");
 				}
 				out.println("</select>");
 				out.println("<p style='color: red;'>"+error+"</p>");
@@ -72,7 +75,7 @@ public class Listalibros extends HttpServlet {
 			    out.println("<input type='submit' name='limpiarLista' value='Limpiar Lista'>");
 			 out.println("</form>");
 			 //Comprobamos que la session tiene librosAgregados o no
-			 if(librosAgregados.size()>0)
+			 if(librosAgregados.size()<=0)
 				 out.println("<p>No se han elegido libros</p>");
 			 else {
 				 out.println("<p>TU ELECCION:</p>");
