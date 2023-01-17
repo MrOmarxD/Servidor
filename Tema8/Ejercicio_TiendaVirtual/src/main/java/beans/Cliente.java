@@ -3,14 +3,14 @@ package beans;
 public class Cliente {
 	private int idCliente;
 	private String nombre;
-	private int password;
+	private String password;
 	private String domicilio;
 	private int codigopostal;
 	private int telefono;
 	private String email;
 	
 	// Constructores
-	public Cliente(int idCliente, String nombre, int password, String domicilio, int codigopostal, int telefono,
+	public Cliente(int idCliente, String nombre, String password, String domicilio, int codigopostal, int telefono,
 			String email) {
 		super();
 		this.idCliente = idCliente;
@@ -43,11 +43,11 @@ public class Cliente {
 		this.nombre = nombre;
 	}
 
-	public int getPassword() {
+	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(int password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 
