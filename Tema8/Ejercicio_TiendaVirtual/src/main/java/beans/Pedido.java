@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Pedido {
 	private int idPedido;
-	private double importe;
+	private double total;
 	private Date fecha;
 	private Cliente cliente;
 	
@@ -15,11 +15,11 @@ public class Pedido {
 	public void setIdPedido(int idPedido) {
 		this.idPedido = idPedido;
 	}
-	public double getImporte() {
-		return importe;
+	public double getTotal() {
+		return total;
 	}
-	public void setImporte(double importe) {
-		this.importe = importe;
+	public void setTotal(double total) {
+		this.total = total;
 	}
 	public Date getFecha() {
 		return fecha;

@@ -1,14 +1,17 @@
-package PedidoDAO;
+package dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import beans.Item;
+import beans.LineaPedido;
 import beans.Pedido;
 import conex.BDConex;
 
@@ -66,6 +69,38 @@ public class PedidoDAO {
 	
 	// Método guardaPedido que recibe un pedido y lo almacena en la bd
 	public void guardaPedido(Pedido p) {
-		
+        String sql = "INSERT INTO pedidos(id, total, fecha, idcliente) VALUES(?, ?, ?, ?)";
+        try {
+        	Connection con = bd.getDataSource().getConnection();
+            PreparedStatement st = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            st.setInt(1, p.getIdPedido());
+            st.setDouble(2, p.getTotal());
+            SimpleDateFormat formateador = new SimpleDateFormat("yyyy/MM/dd");
+            st.setString(3, formateador.format(p.getFecha()));
+            st.setInt(4, p.getCliente().getIdCliente());
+            
+            st.executeUpdate();
+            
+        } catch (SQLException ex) {
+            System.err.println("Error en metodo guardaPedido: " + ex);
+        }
 	}
+	
+	// Método guardaLineaPedido que recibe una línea de pedido y la almacena en la bd
+		public void guardaLineaPedido (LineaPedido l){
+	        String sql = "INSERT INTO lineaspedido(id, cantidad, idpedido, idpedido) VALUES(?, ?, ?, ?)";
+	        try {
+	        	Connection con = bd.getDataSource().getConnection();
+	            PreparedStatement st = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+	            st.setInt(1, l.getIdLineaPedido());
+	            st.setDouble(2, l.getCantidad());
+	            st.setInt(3, l.getPedido().getIdPedido());
+	            st.setInt(4, l.getItem().getIdItem());
+	            
+	            st.executeUpdate();
+	            
+	        } catch (SQLException ex) {
+	            System.err.println("Error en metodo guardaLineaPedido: " + ex);
+	        }
+		}
 }
