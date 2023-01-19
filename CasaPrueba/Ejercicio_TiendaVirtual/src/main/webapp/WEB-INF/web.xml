@@ -12,7 +12,7 @@
         <servlet-name>ServletRegistro</servlet-name>
         <servlet-class>servlets.ServletRegistro</servlet-class>
         <init-param>
-            <param-name>maxLogins</param-name>
+            <param-name>maxRegistros</param-name>
             <param-value>4</param-value>
         </init-param>
    </servlet>

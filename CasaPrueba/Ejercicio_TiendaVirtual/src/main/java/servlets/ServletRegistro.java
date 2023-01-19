@@ -24,7 +24,6 @@ public class ServletRegistro extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        String fichero = this.getInitParameter("fichero");
         bdCliente = new ClienteDAO();
         bdKeys = new KeysDAO();
     }
@@ -42,6 +41,7 @@ public class ServletRegistro extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String mensajeError = "";
 		String mensaje = "";
+		int maxRegistros = Integer.parseInt(this.getInitParameter("maxRegistros"));
 		
 		if (request.getParameter("registrarse") != null) {
 			if (request.getParameter("usuario").equals("") || request.getParameter("pass").equals("") || request.getParameter("domicilio").equals("") || request.getParameter("zip").equals("") || request.getParameter("telefono").equals("") || request.getParameter("email").equals("")) {
@@ -57,11 +57,20 @@ public class ServletRegistro extends HttpServlet {
 					request.setAttribute("mensajeError", mensajeError);
 					request.getRequestDispatcher("registro.jsp").forward(request, response);
 				} else {
-					boolean exitoProceso = bdCliente.guardaCliente(cliente);
-					if (exitoProceso) {
-						mensaje = "Cliente registrado";
-						request.setAttribute("mensaje", mensaje);
-						request.getRequestDispatcher("login.jsp").forward(request, response);						
+					int cantRegistros = (int) request.getAttribute("cantRegistros");
+					if(cantRegistros>=maxRegistros) {
+						mensajeError = "No se pudo registrar usuario, ha llegado el cupo de registros.";
+						request.setAttribute("mensajeError", mensajeError);
+						request.getRequestDispatcher("registro.jsp").forward(request, response);
+					}
+					else {
+						boolean exitoProceso = bdCliente.guardaCliente(cliente);
+						if (exitoProceso) {
+							cantRegistros++;
+							mensaje = "Cliente registrado";
+							request.setAttribute("mensaje", mensaje);
+							request.getRequestDispatcher("login.jsp").forward(request, response);						
+						}
 					}
 				}
 			}
