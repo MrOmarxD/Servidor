@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -10,7 +11,7 @@
 	<div class="container" style="margin: auto; width: 20em;">
 		<h2 style="text-align: center; background: LightYellow; color: red">Registro</h2>
 		<form action="ServletRegistro" method="post">
-			<table style="margin: auto; border: 1px solid LightYellow; margin-bottom: 15px">
+			<table style="margin: auto; border: 1px solid LightYellow;">
 				<tr>
 					<td style="border: 1px solid LightYellow"><label>Usuario</label></td>
 					<td style="border: 1px solid LightYellow"><input type="text" name="usuario"></td>
@@ -39,13 +40,9 @@
 			<button type="submit" name="registrarse">Registrarse</button>
 			<button type="reset" name="reset">Reset</button>
 		</form>
-		<p style="color: red">
-			<% 
-				if (request.getParameter("registrarse") != null) {
-					out.print(request.getAttribute("mensajeError"));
-				}
-			%>
-		</p>
+		<c:if test="${mensajeError != null}">
+			<script type='text/javascript'>alert("${mensajeError}");</script>
+		</c:if>
 	</div>
 </body>
 </html>

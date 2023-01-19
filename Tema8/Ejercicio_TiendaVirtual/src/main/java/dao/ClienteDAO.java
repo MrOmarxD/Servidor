@@ -15,13 +15,14 @@ public class ClienteDAO {
 	// Método buscaCliente Busca en la BD el cliente con el nombre de usuario y password
 	// recibidos como parámetros y lo devuelve como Cliente (null si no existe)
 	public Cliente buscaCliente (String nombre, String password) {
-		Cliente cliente = new Cliente();
+		Cliente cliente = null;
 		String sql = "SELECT * FROM clientes WHERE nombre = '" + nombre + "' AND password = '" + password + "'";
         try {
             Connection con = bd.getDataSource().getConnection();
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
+            	cliente = new Cliente();
             	cliente.setIdCliente(rs.getInt("id"));
             	cliente.setNombre(nombre);
             	cliente.setPassword(password);
@@ -36,6 +37,7 @@ public class ClienteDAO {
         }
         catch (SQLException ex) {
             System.err.println("Error en metodo buscaCliente: " + ex);
+            return null;
         }
 		return cliente;
 	}

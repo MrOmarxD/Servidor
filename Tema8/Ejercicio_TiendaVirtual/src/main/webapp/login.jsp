@@ -8,6 +8,9 @@
 <title>Login</title>
 </head>
 <body>
+	<c:if test="${mensaje != null}">
+		<script type='text/javascript'>alert("${mensajeError}");</script>
+	</c:if>
 	<div style="margin: auto; width: 20em;">
 		<h2 style="text-align: center; background: LightYellow;">LOGIN</h2>
 		<form action="ServletLogin" method="post">
