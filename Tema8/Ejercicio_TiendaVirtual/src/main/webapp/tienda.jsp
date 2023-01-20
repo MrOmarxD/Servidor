@@ -19,7 +19,7 @@
 					<th style="border: 1px solid LightYellow">Añadir</th>
 				</tr>
 				
-				<c:forEach items="${listaItems}" var="item">
+				<c:forEach items="${lstItems}" var="item">
 					<tr>
 						<td style="border: 1px solid LightYellow; padding: 10px"><c:out value="${item.key}" /></td>
 						<td style="border: 1px solid LightYellow; padding: 10px"><c:out value="${item.value.nombre}" /></td>

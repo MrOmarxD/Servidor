@@ -4,15 +4,24 @@
   <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>
   </welcome-file-list>
-  <session-config>
-  		<session-timeout>30</session-timeout>
-  </session-config>
   <servlet>
   		<servlet-name>ServletLogin</servlet-name>
   		<servlet-class>servlets.ServletLogin</servlet-class>
   </servlet>
+   <servlet>
+        <servlet-name>ServletRegistro</servlet-name>
+        <servlet-class>servlets.ServletRegistro</servlet-class>
+        <init-param>
+            <param-name>maxRegistros</param-name>
+            <param-value>4</param-value>
+        </init-param>
+   </servlet>
   <servlet-mapping>
   		<servlet-name>ServletLogin</servlet-name>
   		<url-pattern>/ServletLogin</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  		<servlet-name>ServletRegistro</servlet-name>
+  		<url-pattern>/ServletRegistro</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -9,7 +9,7 @@
 </head>
 <body>
 	<c:if test="${mensaje != null}">
-		<script type='text/javascript'>alert("${mensajeError}");</script>
+		<p style="color: green">"${mensaje}"</p>
 	</c:if>
 	<div style="margin: auto; width: 20em;">
 		<h2 style="text-align: center; background: LightYellow;">LOGIN</h2>
