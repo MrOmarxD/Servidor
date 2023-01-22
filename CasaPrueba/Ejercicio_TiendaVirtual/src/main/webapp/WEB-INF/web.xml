@@ -16,6 +16,10 @@
             <param-value>4</param-value>
         </init-param>
    </servlet>
+   <servlet>
+  		<servlet-name>ServletListarPedidos</servlet-name>
+  		<servlet-class>servlets.ServletListarPedidos</servlet-class>
+  </servlet>
   <servlet-mapping>
   		<servlet-name>ServletLogin</servlet-name>
   		<url-pattern>/ServletLogin</url-pattern>
@@ -23,5 +27,9 @@
   <servlet-mapping>
   		<servlet-name>ServletRegistro</servlet-name>
   		<url-pattern>/ServletRegistro</url-pattern>
+  </servlet-mapping>
+   <servlet-mapping>
+  		<servlet-name>ServletListarPedidos</servlet-name>
+  		<url-pattern>/ServletListarPedidos</url-pattern>
   </servlet-mapping>
 </web-app>
