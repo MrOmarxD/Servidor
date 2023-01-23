@@ -10,7 +10,7 @@
 	<div class="container" style="margin: auto; width: 20em;">
 		<h2 style="text-align: center; background: LightYellow;">LÁMINAS</h2>
 		<form action="ServletAgregarLineaPedido" method="post">
-			<table style="margin: auto; border: 1px solid LightYellow; margin-bottom: 15px">
+			<table style="margin: auto; border: 1px solid LightYellow;">
 				<tr>
 					<th style="border: 1px solid LightYellow">Id</th>
 					<th style="border: 1px solid LightYellow">Nombre</th>
@@ -29,9 +29,9 @@
 					</tr>
 				</c:forEach>
 			</table>
-			<button type="submit" name="ver">Ver cesta</button>
-			<button type="submit" name="hacer">Hacer pedido</button>
-			<button type="submit" name="pedidos">Mis pedidos</button>
+			<button type="submit" name="botVerCesta">Ver cesta</button>
+			<button type="submit" name="botHacerPedido">Hacer pedido</button>
+			<button type="submit" name="botMisPedidos">Mis pedidos</button>
 		</form>
 	</div>
 </body>

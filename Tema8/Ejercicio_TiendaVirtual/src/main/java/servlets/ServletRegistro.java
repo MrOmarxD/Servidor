@@ -40,9 +40,12 @@ public class ServletRegistro extends HttpServlet {
 		String mensajeError = "";
 		String mensaje = "";
 		int maxRegistros = Integer.parseInt(this.getInitParameter("maxRegistros"));
+		int cantRegistros = 0;
+		if(request.getAttribute("cantRegistros")!=null)
+			cantRegistros = (int) request.getAttribute("cantRegistros");
 		
 		if (request.getParameter("registrarse") != null) {
-			if (request.getParameter("usuario").equals("") || request.getParameter("pass").equals("") || request.getParameter("domicilio").equals("") || request.getParameter("zip").equals("") || request.getParameter("telefono").equals("") || request.getParameter("email").equals("")) {
+			if (request.getParameter("usuario").equals("") || request.getParameter("password").equals("") || request.getParameter("domicilio").equals("") || request.getParameter("zip").equals("") || request.getParameter("telefono").equals("") || request.getParameter("email").equals("")) {
 				mensajeError = "Debes rellenar todos los campos";
 				request.setAttribute("mensajeError", mensajeError);
 				request.getRequestDispatcher("registro.jsp").forward(request, response);
@@ -55,7 +58,6 @@ public class ServletRegistro extends HttpServlet {
 					request.setAttribute("mensajeError", mensajeError);
 					request.getRequestDispatcher("registro.jsp").forward(request, response);
 				} else {
-					int cantRegistros = (int) request.getAttribute("cantRegistros");
 					if(cantRegistros>=maxRegistros) {
 						mensajeError = "No se pudo registrar usuario, ha llegado el cupo de registros.";
 						request.setAttribute("mensajeError", mensajeError);
@@ -65,6 +67,7 @@ public class ServletRegistro extends HttpServlet {
 						boolean exitoProceso = bdCliente.guardaCliente(cliente);
 						if (exitoProceso) {
 							cantRegistros++;
+							request.setAttribute("cantRegistros", cantRegistros);
 							mensaje = "Cliente registrado";
 							request.setAttribute("mensaje", mensaje);
 							request.getRequestDispatcher("login.jsp").forward(request, response);						
