@@ -57,4 +57,13 @@ public class CarroCompra {
 			return false;
 		return true;
 	}
+	
+	// get / set
+	public HashMap<Integer, LineaPedido> getCarro() {
+		return carro;
+	}
+
+	public void setCarro(HashMap<Integer, LineaPedido> carro) {
+		this.carro = carro;
+	}
 }

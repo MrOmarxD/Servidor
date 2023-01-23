@@ -20,6 +20,14 @@
   		<servlet-name>ServletListarPedidos</servlet-name>
   		<servlet-class>servlets.ServletListarPedidos</servlet-class>
   </servlet>
+  <servlet>
+  		<servlet-name>ServletVaciarCesta</servlet-name>
+  		<servlet-class>servlets.ServletVaciarCesta</servlet-class>
+  </servlet>
+   <servlet>
+  		<servlet-name>ServletUpdateLineaPedido</servlet-name>
+  		<servlet-class>servlets.ServletUpdateLineaPedido</servlet-class>
+  </servlet>
   <servlet-mapping>
   		<servlet-name>ServletLogin</servlet-name>
   		<url-pattern>/ServletLogin</url-pattern>
@@ -31,5 +39,13 @@
    <servlet-mapping>
   		<servlet-name>ServletListarPedidos</servlet-name>
   		<url-pattern>/ServletListarPedidos</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  		<servlet-name>ServletVaciarCesta</servlet-name>
+  		<url-pattern>/ServletVaciarCesta</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  		<servlet-name>ServletUpdateLineaPedido</servlet-name>
+  		<url-pattern>/ServletUpdateLineaPedido</url-pattern>
   </servlet-mapping>
 </web-app>
