@@ -1,0 +1,5 @@
+omar 123 10
+pedro 123 20
+juan 123 50
+lucas 123 15
+rosa 123 25

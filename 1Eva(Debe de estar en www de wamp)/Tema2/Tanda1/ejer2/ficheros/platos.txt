@@ -1,0 +1,12 @@
+Alubias Primero 4.5
+Salmon Segundo 8.9
+Flan Postre 2.5
+Vino Bebida 2
+Agua Bebida 1
+Cola Bebida 2
+Fruta Postre 2.5
+Yogur Postre 1.5
+Solomio Segundo 7.5
+Parrilla Segundo 11.5
+Sopa Primero 4.5
+Ensalada Primero 4.5

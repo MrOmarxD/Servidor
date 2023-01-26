@@ -1,0 +1,31 @@
+-- Nombres de las imágenes de ítems de la categoría ‘X’
+Forma 1: select imagen from imagnes where exists (select * from items where id_item = id and exists (select * from categorias where id_cat= id and categoria = 'X'));
+Forma 2: select imagen from imagenes inner join items on items.id=imagenes.id_items
+				     inner join categorias on categorias.id=items.id_cat
+				     where categorias.categoria = 'x';
+
+-- Nombre e email de los usuarios que han pujado por ítems con un precio de partida entre 1000 y 5000 (No me devuelve nada)
+select nombre, email from usuarios where exists (select * from pujas where pujas.id_user=usuarios.id and exists (select * from items where preciopartida>1000 and preciopartida<5000 and id=id_item));
+
+-- Fecha, nombre de usuario y nombre de ítem de la última puja
+select Max(fecha), usuarios.nombre, items.nombre from pujas, usuarios, items where usuarios.id=pujas.id_user and items.id=pujas.id_item;
+
+-- Cantidad de usuarios que tienen algún ítem, pero ninguna puja
+select count(*) from usuarios where exists (select * from items where usuarios.id=id_user and not exists (select * from pujas where items.id=id_item));
+
+-- Por cada fecha anterior al ‘2020/10/10’ en la que haya pujas, cuántas pujas hay y valor medio de éstas (No me devuelve nada)
+select count(*), AVG(cantidad) from pujas where fecha< "2020-10-10";
+
+-- Valor más alto pujado y a qué ítem (nombre) corresponde
+
+-- Nombre de los ítems de categoría ‘X’, junto a cantidad media pujada por cada uno
+select nombre, AVG(cantidad) from pujas, items, categorias where categorias.id=items.id_cat and categorias.categoria = "flores" and items.id=pujas.id_item;
+
+-- Nombre y precio de partida de los ítems que no tienen ninguna imagen y tienen más de 3 pujas
+select nombre, preciopartida from items where not exists(select * from imagenes where imagenes.id_item=items.id) and 3 < (select count(*) from pujas where pujas.id_item=items.id);
+
+-- Nombres de las categorías en las que hay al menos 3 subastas vigentes
+select categoria from categorias where 3 <= (select count(*) from items where categorias.id=items.id_cat and fechafin > sysdate());
+
+-- Nombre y descripción de los ítems cuya máxima puja al menos duplica el precio de partida
+select nombre, descripcion from items where preciopartida*2 < (select Max(cantidad) from pujas where pujas.id_item=items.id);
