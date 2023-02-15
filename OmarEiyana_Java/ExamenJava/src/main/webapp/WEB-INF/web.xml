@@ -2,22 +2,42 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
   <display-name>ExamenJava</display-name>
   <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
-  </welcome-file-list>
+    	<welcome-file>horarioscharlas.jsp</welcome-file>
+    </welcome-file-list>
+    
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
   <resource-ref>
 		<description>DB Connection</description>
-		<res-ref-name>jdbc/poolActividadesDB</res-ref-name>
+		<res-ref-name>jdbc/poolCharlasDB</res-ref-name>
 		<res-type>javax.sql.DataSource</res-type>
 		<res-auth>Container</res-auth>
 	</resource-ref>
-	
-	<!-- Servlet Alumnos -->
-	<servlet>
-		<servlet-name>ServletAlumnos</servlet-name>
-		<servlet-class>servlets.ServletAlumnos</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>ServletAlumnos</servlet-name>
-		<url-pattern>/ServletAlumnos</url-pattern>
-	</servlet-mapping>
+    
+    <!-- Servlet prepararCharlas -->
+     <servlet>
+        <servlet-name>ServletPrepararCharlas</servlet-name>
+        <servlet-class>servlets.ServletPrepararCharlas</servlet-class>
+        <init-param>
+	      <param-name>fichero</param-name>
+	      <param-value>AperturaCierreCharlas.txt</param-value>
+    	</init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletPrepararCharlas</servlet-name>
+        <url-pattern>/ServletPrepararCharlas</url-pattern>
+    </servlet-mapping>
+    
+    <!-- Servlet reservas -->
+     <servlet>
+        <servlet-name>ServletReservas</servlet-name>
+        <servlet-class>servlets.ServletReservas</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletReservas</servlet-name>
+        <url-pattern>/ServletReservas</url-pattern>
+    </servlet-mapping>
 </web-app>
