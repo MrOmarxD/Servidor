@@ -2,7 +2,7 @@
     </div>
     <!-- Footer -->
     <footer id="footer">
-        <h1>Recuperacion 1EVAL DWES - 2022/2023</h1>
+        <p>Recuperacion 1EVAL DWES - 2022/2023</p>
     </footer>
 </body>
 </html>
