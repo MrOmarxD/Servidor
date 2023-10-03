@@ -1,0 +1,5 @@
+Alaves;; Docentes;945236784;alaves@gmail.com
+Real Madrid;Tito Floren; Politicos;944567843;madrid@gmail.com
+Celta;Aspas; Docentes;945667895;celta@gmail.com
+Betis;Hulio; Exparejas;945123456;betis@gmail.com
+FCBarcelona;El Barto; Civiles;945678743;barsa@gmail.com
